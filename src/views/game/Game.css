@@ -10,8 +10,7 @@
     padding: 20px 0px;
     display: flex;
     flex-direction: column;
-    border:1px solid lightgray;
-    background-color: #FFFFFF;
+    background-color: rgb(34, 34, 34);
     
 }
 
@@ -51,7 +50,9 @@
     align-items: center;
     gap:20px;
     box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.1);
-    background-color: #FFFFFF;
+    background-color: #3C4852;
+    
+    
 }
 
 
@@ -63,7 +64,8 @@
     box-shadow:0px 0px 2px 1px rgba(0, 0, 0, 0.2);
     width: 100px;
     height: 60%;
-    color:rgb(83, 83, 83);
+    color:rgb(230, 230, 230);
+    background-color: #ffffff60;
 }
 
 .game-play-button:hover{
@@ -86,20 +88,19 @@
     border-radius: 5px;
     height: 50px;
     margin-bottom: 20px;
-    border:1px solid lightgray;
-    background-color: #FFFFFF;
+    color: white;
+    background-color: rgb(34, 34, 34);;
 }
 
 
 .game-profile-layout{
-    border:1px solid lightgray;
     border-radius: 5px;
     height: 740px;
     padding: 20px 0px;
     display: flex;
     flex-direction: column;
     top:-70px;
-    background-color: #F6F4EC;
+    background-color: rgb(34, 34, 34);
 }
 
 
@@ -117,11 +118,10 @@
     margin: auto;
     height: 550px;
     border-radius: 5px;
-    border:1px solid lightgray;
     overflow-y: scroll;
     padding: 10px;
     gap:15px;
-    background-color: #F6F4EC;
+    background-color: #30393D;
 }
 
 .game-room-layout::-webkit-scrollbar{
@@ -140,3 +140,127 @@
     margin-bottom: 10px;
 }
 
+
+
+
+
+
+.game-modal-layout{
+    margin: auto;
+    height: 400px;
+    border-radius: 5px;
+    border:none;
+    padding: 10px;
+    gap:15px;
+    background-color: #20282E;
+    display: flex;
+    flex-direction: column;
+}
+
+
+
+
+.game-room-modal-container{
+    height: 50px;
+}
+
+
+.grmc1{
+    display: flex;
+    justify-content: space-between;
+}
+
+.grmc2{
+    height: 60%;
+    background-color: #ffffff2f;
+    border-radius: 5px;
+}
+
+
+
+.grmc3{
+    margin: auto;
+    display: flex;
+    gap: 25px;
+    height: 50px;
+}
+
+.game-room-modal-select{
+    border-radius:3px;
+    width:20%;
+    height:100%;
+    background-color: #30393D;
+    border: none;
+    color:white;
+    text-align: center;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.game-room-modal-title{
+    font-family: Lobster;
+    font-size: 25px;
+    line-height: 50px;
+    width: 25%;
+    background-color: #30393D;
+    color:white;
+    padding: auto;
+    text-align: center;
+    border-radius: 5px;
+}
+
+.game-mode-card{
+    margin: 15px 5px;
+    height: 200px;
+    box-shadow:0px 0px 4px 1px rgba(0, 0, 0, 0.7);
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    background-color: rgba(0, 0, 0, 0.849);
+    transition: all 0.3s;
+    cursor: pointer;
+    border: 1px solid #5A5E62;
+}
+
+.game-mode-card:hover{
+    scale: 1.05;
+}
+
+
+
+.game-room-modal-button{
+    width: 150px;
+    border-radius: 5px;
+    font-size: 14px;
+    border-radius: 5px;
+    font-weight: bold;
+    border: none;
+    box-shadow:0px 0px 4px 1px rgba(0, 0, 0, 0.4);
+    height: 100%;
+    color:whitesmoke;
+    background-color: #3C4852;  
+}
+
+.game-room-modal-button:hover{
+    box-shadow: inset 2px 2px 4px 1px rgba(0, 0, 0, 0.2);
+}
+
+
+.game-mode-card-image{
+    width: 90%;
+    height: 70%;
+    margin: auto;
+    background-image: url(../../assets/images//blog-0.jpg);
+    background-size: 100% 100%;
+    border-radius: 5px;
+    box-shadow: inset 2px 2px 5px 3px rgba(0, 0, 0, 0.308);
+}
+
+.game-mode-card-title{
+    height: 20%;
+    margin-bottom: 5px;
+    font-size: 15px;
+    text-align: center;
+    line-height: 40px;
+    color: white;
+}

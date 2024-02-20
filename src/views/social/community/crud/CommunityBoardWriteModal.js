@@ -5,6 +5,7 @@ import 'owl.carousel/dist/assets/owl.theme.default.css';
 import './CommunityBoardWriteModal.css';
 import axios from 'axios';
 
+
 function CommunityBoardWriteModal(props) {
     function getCookie(name) {
         const cookies = document.cookie.split(';');
@@ -29,13 +30,12 @@ function CommunityBoardWriteModal(props) {
     };
 
     const [selectedFiles, setSelectedFiles] = useState([]);
-    const [boardImages, setBoardImages] = useState([]);
     const [posts, setPosts] = useState({
         accountNo: `${props.accountNo}`,
         title: "",
         boardComment: "",
         address: "서울특별시 서초구 서초대로77길 41, 4층 (서초동, 대동Ⅱ)",
-        uploads: ''
+        boardImage: ''
     });
     const [inputHidden, setInputHidden] = useState(false); // input 태그 보이기 여부 상태
 
@@ -51,77 +51,43 @@ function CommunityBoardWriteModal(props) {
     const handleFileChange = async (event) => {
         const files = event.target.files;
         const fileArray = Array.from(files);
-    
-        // 각 파일의 base64 문자열을 저장할 배열
-        const base64Array = [];
-    
-        // 모든 파일을 처리하여 base64로 변환하고 배열에 저장
-        for (const file of fileArray) {
-            const base64String = await convertToBase64(file);
-            base64Array.push(base64String);
-        }
-    
-        // 배열에 저장된 base64 문자열을 모두 보내는 대신, 여러 파일 중 첫 번째 파일의 base64 문자열만 사용할 수도 있습니다.
-        // 여기서는 배열에 저장된 모든 base64 문자열을 보내는 것으로 예시를 보여드리겠습니다.
+
+        const base64String = await convertToBase64(fileArray[0]); // 첫 번째 파일의 base64 문자열만 사용
         setPosts(prevPosts => ({
             ...prevPosts,
-            uploads: base64Array // 모든 base64 문자열을 저장한 배열
+            boardImage: base64String
         }));
-    
+
         setSelectedFiles(fileArray);
         setInputHidden(true); // 이미지가 업로드되면 input 태그 숨기기
     };
-    
-    const onClickButton = async (e) => {
+
+    const onClickButton = (e) => {
         setPosts({
             ...posts
         });
-    
-        console.log('ddd',posts);
+
         if (posts.title !== "") {
-            try {
-                // 이미지를 Python으로 전송
-                const data = new FormData();
-    
-                for (const file of posts.uploads) {
-                    const base64 = file.split(',')[1];
-                    data.append('uploads', base64);
+            axios.post('http://192.168.0.15:8080/api/v1/boards', posts, {
+                headers: {
+                    'Authorization': `${myCookieValue}`,
+                    'Content-Type': 'multipart/form-data'
                 }
-                
-                const imageResponse = await axios.post('http://192.168.0.15:5050/file/uploads', data, {
-                    headers: {
-                        'Content-Type': 'multipart/form-data'
-                    }
+            })
+                .then(response => {
+                    console.log(response.data);
+                })
+                .catch(error => {
+                    console.error(error);
                 });
-                console.log(imageResponse.data);
-    
-                // 이미지를 전송한 후에 boardImages 상태 업데이트
-                setBoardImages(imageResponse.data);
-    
-                // 이미지 전송 후 Spring으로 나머지 데이터를 전송
-                const springResponse = await axios.post('http://192.168.0.104:8080/api/v1/boards', {
-                    accountNo: props.accountNo,
-                    title: posts.title,
-                    boardComment: posts.boardComment,
-                    address: posts.address,
-                    boardImages: imageResponse.data // 이미지 데이터를 함께 전송
-                },{
-                    headers: {
-                        'Authorization' : `${myCookieValue}`,
-                        'Content-Type' : 'application/json; charset=UTF-8'
-                    }
-                });
-                console.log(springResponse.data);
-            } catch (error) {
-                console.error(error);
-            }
         }
     };
 
     return (
         <div className="col-lg-12 col-sm-12">
             <form className="blog-single-box upper" style={{ backgroundColor: "#F6F4EC" }} onSubmit={onClickButton}>
-                <div style={{ position: "relative" }}>
+                {/***************************       수정한 부분     *******************************/}
+                <div style={{ position: "relative", width:"92%", height:"500px", margin:"auto", marginTop:"30px", background:"white", borderRadius:"5px", border:"1px solid #c2cfdb"}}>
                     {!inputHidden && (
                         <>
                             <label htmlFor="file" className='blog-image-button'>Images</label>
@@ -149,6 +115,11 @@ function CommunityBoardWriteModal(props) {
                     <div style={{ display: "flex", flexDirection: "row-reverse", gap: "10px" }}>
                         <button className="community-write-button">Back</button>
                         <button className="community-write-button" type="submit">Post</button>
+                        <select className="community-modal-select">
+                          <option value="">일반</option>
+                          <option value="">식단</option>
+                          <option value="">음식</option>
+                      </select>
                     </div>
                 </div>
             </form>

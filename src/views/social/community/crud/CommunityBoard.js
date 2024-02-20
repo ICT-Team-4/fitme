@@ -1,4 +1,7 @@
-import React from 'react';
+import {Link} from 'react-router-dom';
+import React, { useState,useEffect,useRef} from 'react';
+//npm install axios
+import axios from 'axios';
 
 import OwlCarousel from 'react-owl-carousel';
 import 'owl.carousel/dist/assets/owl.carousel.css';
@@ -19,16 +22,11 @@ function CommunityBoard(props) {
         props.setIsOpen(true);
     }
 
-    //글 올린 사용자 정보를 전달하기 위해 accountNo 전달
-    function handleButtonClick(accountNo) {
-        props.onButtonClicked(accountNo);
-    }
-
     return (
         <div className="col-lg-12 col-sm-12">
             <div className="blog-single-box upper">
                 <div className="blog-left" style={{padding:"60px 0px 40px 20px"}}>
-                    <div className="blog-icon bi1"  style={{backgroundImage: `url(${props.image})`}} onClick={() => handleButtonClick(props.accountNo)}>
+                    <div className="blog-icon bi1"  style={{backgroundImage: `url(${props.image})`}}>
                     </div>
                     <div className='blog-description'>
                         <a href="#"><i className="fas fa-address-card"></i> {props.name}</a>
@@ -70,7 +68,6 @@ function CommunityBoard(props) {
                             <div className='blog-button-item'>
                                 <img src={require('../images/heart.png')}/>
                             </div>
-                            
                             <div className='blog-button-item'>
                                 <img src={require('../images/scrap.png')}/>
                             </div>
