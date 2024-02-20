@@ -55,7 +55,7 @@ function CommunityBoard(props) {
                     <div style={{display:"flex", height:"35px"}}>
                     <select style={{width:"35px", padding:"5px", marginRight:"10px", borderRadius:"0px", border:"3px solid rgba(0, 0, 0, 0.391)", borderRadius:"0px", backgroundColor:"lightgray"}}>
                         <option value=""></option>
-                        <option value="">신고</option>
+                        <option value="">신고1</option>
                         <option value="">수정</option>
                         <option value="">삭제</option>
                     </select>
