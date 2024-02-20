@@ -30,7 +30,7 @@ import ChatbotFloating from '../../component/chatbotFloating/ChatbotFloating';
 /************************************************************ */
 //리액트 커스텀 모달용
 import CommunityBoardWriteModal_ from './crud/CommunityBoardWriteModal_';
-
+import CommunityBoardViewModal_ from './crud/CommunityBoardViewModal_';
 
 function Community() {
 
@@ -197,11 +197,27 @@ function Community() {
                             />
                         ))}
                         
+                        {/*****************  ★*******************/}
+                        <CommunityBoard 
+                                bno="1"
+                                name="1"
+                                image="1"
+                                address="1"
+                                postDate="1"
+                                likes="1"
+                                title="1"
+                                comment="1"
+                                isOpen={isOpen}
+                                setIsOpen={setIsOpen}
+                         />
+                        {/*************************************/}
                         {showModal && (
                             <CommunityBoardWriteModal_ onClose={() => setShowModal(false)}>
                                <CommunityBoardWriteModal accountNo={userInfo.accountNo}/>
                             </CommunityBoardWriteModal_>
                         )}
+
+                        
                         
                     </div>
 
@@ -214,7 +230,7 @@ function Community() {
         </div>
         {/*푸터 영역*/}
         {isOpen && (
-            <Modal
+            <CommunityBoardViewModal_
             open={isOpen}
             onClose={() => {
               setIsOpen(false);
@@ -230,7 +246,7 @@ function Community() {
                 // title={board.title}
                 // comment={board.boardComment}
             />
-          </Modal>
+          </CommunityBoardViewModal_>
             
         )}
         <Footer/>
