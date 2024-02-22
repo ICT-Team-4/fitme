@@ -187,7 +187,7 @@ function SignUp() {
             title="이메일 형식으로 입력하세요."
             className="text-field"
             placeholder="이메일"
-            value={userEmail}
+            defaultValue={userEmail}
             onChange={e => setUserEmail(e.target.value)}
           />
 
@@ -205,7 +205,7 @@ function SignUp() {
         id="emailCodeInput"
         className="mail-check-input"
         placeholder="인증번호 입력"
-        value={emailInput}
+        defaultValue={emailInput}
         onChange={handleInputChange}
       />
       <button
@@ -224,7 +224,7 @@ function SignUp() {
           title="8~12자 & 숫자,영어,특수문자가 포함되어야 합니다."
           className="text-field"
           placeholder="비밀번호"
-          value={password}
+          defaultValue={password}
           onChange={handlePasswordChange}
         />
         <input type="password" name="passwordchk" className="text-field" placeholder="비밀번호 확인" />
@@ -238,30 +238,30 @@ function SignUp() {
           <div>
           <input type="number" min="1900" max="2500" name="year" className="year" placeholder="년도(4자리)" />
           <select className="month">
-              <option value="">월</option>
-              <option value="">1월</option>
-              <option value="">2월</option>
-              <option value="">3월</option>
-              <option value="">4월</option>
-              <option value="">5월</option>
-              <option value="">6월</option>
-              <option value="">7월</option>
-              <option value="">8월</option>
-              <option value="">9월</option>
-              <option value="">10월</option>
-              <option value="">11월</option>
-              <option value="">12월</option>
+              <option defaultValue="">월</option>
+              <option defaultValue="">1월</option>
+              <option defaultValue="">2월</option>
+              <option defaultValue="">3월</option>
+              <option defaultValue="">4월</option>
+              <option defaultValue="">5월</option>
+              <option defaultValue="">6월</option>
+              <option defaultValue="">7월</option>
+              <option defaultValue="">8월</option>
+              <option defaultValue="">9월</option>
+              <option defaultValue="">10월</option>
+              <option defaultValue="">11월</option>
+              <option defaultValue="">12월</option>
             </select>
             <input type="number" min="1" max="31" className="day" placeholder="일" />
           </div>
         </div>
         <div id="find_adress">
-        <input type="text" id="postcode" name="postcode" placeholder="우편번호" value={postcode} readOnly />
+        <input type="text" id="postcode" name="postcode" placeholder="우편번호" defaultValue={postcode} readOnly />
 
         <button className="searchaddress-button" onClick={handleOpenDaumPost}>주소 검색</button>
         {popup && <DaumPost handleAddressChange={handleAddressChange} />}
         </div>
-          <input type="text"  id="address" name="address" placeholder="주소" value={address} readOnly/> 
+          <input type="text"  id="address" name="address" placeholder="주소" defaultValue={address} readOnly/> 
           <input type="text" id="detailAddress" name="detailaddress" placeholder="상세주소"/>
         <div className="hr-sect">선택해주세요!</div>
         <div className="section-heading">성별</div>
@@ -284,7 +284,7 @@ function SignUp() {
             <p style={{ color: 'red', fontSize: '14px', marginTop: '5px' }}>{interMessage}</p>
           )}
         </div>
-        <input type="submit" value="회원 가입" className="submit-btn" />
+        <input type="submit" defaultValue="회원 가입" className="submit-btn" />
         <div className="links">
           <p>
             이미 계정이 있으신가요? <a href="/signin">로그인</a>
