@@ -56,10 +56,10 @@ function CommunityBoardViewModal(props) {
                     <div className="blog-content">
                         <div style={{display:"flex", height:"35px"}}>
                         <select style={{width:"35px", padding:"5px", marginRight:"10px", borderRadius:"0px", border:"3px solid rgba(0, 0, 0, 0.391)", borderRadius:"0px", backgroundColor:"lightgray"}}>
-                            <option value=""></option>
-                            <option value="">신고1</option>
-                            <option value="">수정</option>
-                            <option value="">삭제</option>
+                            <option defaultValue=""></option>
+                            <option defaultValue="">신고1</option>
+                            <option defaultValue="">수정</option>
+                            <option defaultValue="">삭제</option>
                         </select>
                         <h2><a href="blog-details.html">{props.title}</a></h2>
                         </div>

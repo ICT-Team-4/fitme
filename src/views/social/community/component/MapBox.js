@@ -126,7 +126,7 @@ function MapBox(props) {
                         className="form-control"
                         type="text"
                         name="search"
-                        value={keyword}
+                        defaultValue={keyword}
                         onChange={handleInputChange}
                         placeholder="Search...."
                     />
