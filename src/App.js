@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { AnimatePresence} from 'framer-motion';
 
 import {useEffect} from 'react';
 import Main from './views/main/Main';
@@ -51,6 +52,7 @@ import './assets/css/responsive.css';
 function App() {
   return (
     <div className="App">
+      <AnimatePresence>
         <BrowserRouter>
           <Routes>
             {/* 메인화면 */}
@@ -81,6 +83,7 @@ function App() {
             
           </Routes>
         </BrowserRouter>
+      </AnimatePresence>
     </div>
   );
 }
