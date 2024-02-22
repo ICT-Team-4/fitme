@@ -41,10 +41,10 @@ function Game() {
       smartSpeed: 4000,
       mouseDrag: false
     };
-
+    
     const [isOpen, setIsOpen] = useState(false);
-
-
+    const [showGameRoomModal, setShowGameRoomModal] = useState(false);
+    const [showModal, setShowModal] = useState(false);
 
     useEffect(()=>{
         $('body').addClass('loaded');
@@ -107,7 +107,7 @@ function Game() {
                   
                   {/**************************************************************/}
                   {/*게임 프로필 영역 (오른쪽 사이드바)*/}
-                  <GameRoomSideProfile/>
+                  <GameRoomSideProfile showModal={showModal} setShowModal={setShowModal}/>
                   {/**************************************************************/}
                 </div>
               </div>
@@ -117,9 +117,11 @@ function Game() {
 
 
         {/**** 게임방 생성 모달 *****/}
-        <GameRoomMakeModal_ open={isOpen} onClose={() => {setIsOpen(false);}}>
-            <GameRoomMakeModal/>
-        </GameRoomMakeModal_>
+        {showModal && (
+          <GameRoomMakeModal_ onClose={() => {setShowModal(false);}}>
+              <GameRoomMakeModal setShowModal={setShowModal}/>
+          </GameRoomMakeModal_>
+        )}
 
 
 

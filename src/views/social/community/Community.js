@@ -284,7 +284,6 @@ function Community() {
                                 />
                             </CommunityBoardWriteModal_>
                         )}
-                        
                     </div>
 
                     <div className="col-lg-4 col-md-6 col-sm-12">
