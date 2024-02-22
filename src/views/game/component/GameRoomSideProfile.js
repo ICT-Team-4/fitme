@@ -6,7 +6,6 @@ function GameRoomSideProfile({showModal, setShowModal}) {
     const [show, setShow] = useState(false);
 
     const handleClick = () => {
-        console.log("클릭");
         setShow(prevShow => !prevShow);
         setShowModal(prevShowModal => !prevShowModal);
     }
