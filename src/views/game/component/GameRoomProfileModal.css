@@ -3,7 +3,7 @@
     position: relative;
     width:100%;
     height:300px;
-    background-color: #30393D;
+    background-color: #E8EBEC;
     border-radius:5px;
     margin-bottom: 20px;
     overflow: hidden;
@@ -25,8 +25,7 @@
     width:100%;
     height:60px;
     border-radius:5px;
-    background-color: #30393D;
-
+    background-color: #E8EBEC;
 }
 
 .game-profile-modal-edit-button{
@@ -39,8 +38,8 @@
     border: none;
     box-shadow:0px 0px 2px 1px rgba(0, 0, 0, 0.2);
     height: 70%;
-    color:rgb(200, 200, 200);
-    background-color: #ffffff60;
+    color:black;
+    background-color: white;
 }
 
 

@@ -133,8 +133,8 @@ function GameRoomProfileModal(props) {
 
   return (
     <div className="Modal" onMouseDown={closeModal}>
-      <div className="modalBody" onMouseDown={(e) => e.stopPropagation()} style={{width: '512px', height: '512px', overflow:"hidden", backgroundColor:"rgb(24, 24, 24)", boxShadow:"none"}}>
-        <div className="ai-image-create" style={{display:"none"}}>
+      <div className="modalBody" onMouseDown={(e) => e.stopPropagation()} style={{width: '512px', height: '512px', overflow:"hidden", backgroundColor:"rgb(255, 255, 255)"}}>
+        <div className="ai-image-create" style={{display:"none", boxShadow:"0px 0px 5px 1px rgba(0,0,0,0.3)"}}>
           <input className="ai-image-input" placeholder="생성할 이미지를 입력하세요"
           onChange={(e) => setInputText(e.target.value)}  // 입력된 텍스트를 state에 저장
           ></input>
@@ -144,12 +144,12 @@ function GameRoomProfileModal(props) {
           </div>
         </div>
        
-        <div className="game-profile-edit-image-layout">
+        <div className="game-profile-edit-image-layout" style={{border:"1px solid rgba(0,0,0,0.2)"}}>
           {/*게임 프로필 이미지 생성 부분 */}
           {imageUrl && <img src={imageUrl} alt=""/>}
         </div>
 
-        <div className="game-profile-edit-button-layout">
+        <div className="game-profile-edit-button-layout" style={{border:"1px solid rgba(0,0,0,0.2)"}}>
           {/* <label htmlFor="file" className='game-profile-modal-edit-button label-line-height'>Images</label> */}
           <input type="file" id="file" style={{ display: "none" }}/>
 
