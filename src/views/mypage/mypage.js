@@ -453,7 +453,6 @@ function MyPage() {
                     // console.log('sumSizes', sumSizes(results));
                     const processedData = sumSizes(results);
                     const normalizedData = processedData.map(item => ({ ...item, size: (item.size / results.length).toFixed(2) }));
-
                     setWeekFoodChartData(normalizedData);
                 })
                 .catch(error => {

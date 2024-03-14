@@ -6,7 +6,7 @@
     border:none;
     padding: 10px;
     gap:15px;
-    background-color: #20282E;
+    background-color: #f1f9fc;
     display: flex;
     flex-direction: column;
     border: 2px solid rgba(255, 255, 255, 0.571);
@@ -27,8 +27,9 @@
 
 .grmc2{
     height: 60%;
-    background-color: #ffffff2f;
+    background-color: white;
     border-radius: 5px;
+    box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.486);
 }
 
 
@@ -44,37 +45,45 @@
     border-radius:3px;
     width:20%;
     height:100%;
-    background-color: #30393D;
+    background-color: white;
     border: none;
-    color:white;
+    color:black;
     text-align: center;
     border-radius: 5px;
     font-weight: bold;
     line-height: 50px;
+    box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.486);
+}
+
+.game-room-modal-select::placeholder{
+    color: black;
+    font-size: 15px;
 }
 
 .game-room-modal-title{
     font-size: 20px;
     line-height: 50px;
     width: 25%;
-    background-color: #30393D;
-    color:white;
+    background-color: white;
+    color:black;
     padding: auto;
     text-align: center;
     border-radius: 5px;
+    box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.486);
 }
 
 .game-mode-card{
     margin: 15px 5px;
     height: 200px;
-    box-shadow:0px 0px 4px 1px rgba(0, 0, 0, 0.7);
+    border:1px solid rgba(0, 0, 0, 0.068);
     border-radius: 5px;
     display: flex;
     flex-direction: column;
-    background-color: rgba(0, 0, 0, 0.849);
+    background-color: rgb(243, 243, 243);
     transition: all 0.3s;
     cursor: pointer;
-    border: 1px solid #5A5E62;
+    color:black;
+    box-shadow: inset 2px 2px 5px 3px rgba(0, 0, 0, 0.2);
 }
 
 .game-mode-card:hover{
@@ -92,8 +101,8 @@
     border: none;
     box-shadow:0px 0px 4px 1px rgba(0, 0, 0, 0.4);
     height: 100%;
-    color:whitesmoke;
-    background-color: #3C4852;  
+    color:black;
+    background-color: white;  
 }
 
 .game-room-modal-button:hover{
@@ -107,8 +116,8 @@
     margin: auto;
     background-size: 100% 100%;
     border-radius: 5px;
-    box-shadow: inset 2px 2px 5px 3px rgba(0, 0, 0, 0.308);
     pointer-events:none;
+    box-shadow: 0px 0px 1px 1px rgba(0, 0, 0, 0.226);
 }
 
 
@@ -135,8 +144,8 @@
     font-size: 15px;
     text-align: center;
     line-height: 40px;
-    color: white;
     pointer-events:none;
+    color:black;
 }
 
 .card-click-active{

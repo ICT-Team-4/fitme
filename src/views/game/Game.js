@@ -29,10 +29,6 @@ import GameRoomSideProfile from './component/GameRoomSideProfile';
 
 var ipAddress = '192.168.0.53';
 
-const StyledHeader = styled.div`
-  background: black;
-`;
-
 function Game() {
     const options = {
       animateOut: 'slideOutUp',
@@ -100,9 +96,7 @@ function Game() {
         {/*헤더 위*/}
         <HeaderTop/>
         {/*헤더 메인 메뉴*/}
-        <StyledHeader>
         <Header/>
-        </StyledHeader>
         {/* 로딩 애니메이션*/}
         <Loader/>
 

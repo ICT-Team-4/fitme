@@ -5,7 +5,7 @@ function GameRoomSearch() {
         <div>
             <div className="col-lg-12 col-sm-12" style={{display:"flex", gap:"5%"}}>
                 <div className="sidebar-search" style={{width:"88%"}}>
-                    <input  className="form-control" type="text" name="search" placeholder="Search...." style={{backgroundColor:"#5A5E62", color:"whitesmoke",border:"none"}}/>
+                    <input  className="form-control" type="text" name="search" placeholder="Search...." style={{backgroundColor:"white", color:"black",border:"none", boxShadow:"0px 0px 5px 1px rgba(0,0,0,0.3)"}}/>
                     <button className="button search-button" type="submit"><i className="fas fa-search icon-manipulate" style={{position:"relative"}}></i></button>
                 </div>
             </div>
