@@ -46,7 +46,6 @@ function Cart() {
         const updatedCartItems = cartItems.filter(item => !selectedProductNames.includes(item.title));
         setCartItems(updatedCartItems);
         sessionStorage.setItem('cartItems', JSON.stringify(updatedCartItems));
-        window.location.reload();
     };
 
     return (
