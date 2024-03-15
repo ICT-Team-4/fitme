@@ -132,10 +132,20 @@ function Payment(props) {
   };
 
   const payListInsert = async () => {
-    const payNo = generatePayNo();
-    const orderId = generateOrderId();
-    openBootPay(orderId, payNo);
+    // 결제할 상품이 있는지 확인합니다.
+    if (props.productNames && props.productNames.length > 0) {
+      const payNo = generatePayNo();
+      const orderId = generateOrderId();
+      openBootPay(orderId, payNo);
+    } else {
+      // 상품이 없는 경우 Swal 알림창을 표시합니다.
+      Swal.fire({
+        icon: 'info',
+        text: '결제할 상품을 선택해주세요.',
+      });
+    }
   };
+  
 
   return (
     <Button onClick={payListInsert} variant="contained" color="primary" style={{backgroundColor:'#F8A532',width: '200px' }}>주문하기</Button>
