@@ -54,9 +54,6 @@ function Payment(props) {
     const updatedCartItems = cartItems.filter(item => !productNames.includes(item.title));
     setCartItems(updatedCartItems);
     sessionStorage.setItem('cartItems', JSON.stringify(updatedCartItems));
-    
-    console.log('결제가 완료되어 세션 스토리지에서 상품을 삭제했습니다.');
-    window.location.reload();
   };
 
   const openBootPay = (orderId, payNo) => {
@@ -94,6 +91,11 @@ function Payment(props) {
         icon: 'success',
         title: '결제 완료',
         text: '결제가 완료되었습니다.'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          // 확인 버튼을 눌렀을 때 페이지를 새로고침합니다.
+          window.location.reload();
+        }
       });
       removeItemsAfterPayment(); // 결제가 완료된 후에 장바구니에서 상품 삭제
     });    
