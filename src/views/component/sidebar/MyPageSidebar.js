@@ -18,7 +18,9 @@ import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import dayjs from 'dayjs';
 import moment from "moment";
 
-function MyPageSidebar({week,Scroll_Profile, Scroll_Inbody, Scroll_Statistic_Diet, Scroll_Statistic_Workout, Scroll_BulletinBoard, Scroll_Youtube}) {
+function MyPageSidebar({accountData,week,Scroll_Profile, Scroll_Inbody, Scroll_Statistic_Diet, Scroll_Statistic_Workout, Scroll_BulletinBoard, Scroll_Youtube}) {
+
+    console.log('accountData',accountData);
 
     const MenuSlide = (e) =>{
         if($(e.target.parentElement).hasClass("sidebar-dropdown") && !$(e.target.parentElement).hasClass("active")){
@@ -64,12 +66,12 @@ function MyPageSidebar({week,Scroll_Profile, Scroll_Inbody, Scroll_Statistic_Die
                     <div className="sidebar-header">
                     {/*-- 사용자 프로필 --*/}
                     <div className="user-pic">
-                        <img className="img-responsive img-rounded" src="https://img.freepik.com/free-photo/painting-mountain-lake-with-mountain-background_188544-9126.jpg" alt="User picture"/>
+                        <img className="img-responsive img-rounded" src={accountData.image} alt="User picture"/>
                     </div>
                     {/*-- 사용자 이름 정보 --*/}
                     <div className="user-info">
                         <span className="user-name">
-                        <strong>Jo-Dong-hun</strong>
+                        <strong>{accountData.name}</strong>
                         </span>
                         <span className="user-status">
                         <i className="fa fa-circle"></i>

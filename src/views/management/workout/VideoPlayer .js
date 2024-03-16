@@ -39,6 +39,9 @@ const VideoPlayer = () => {
   let [count, setCount] = useState(0);
   let [stand, setStand] = useState(1);
 
+  //카메라 상태
+  const [cameraName,setCameraName] = useState('VIDEO');
+
   const dropRef = useRef(null);
   const videoRef = useRef(null);
 
@@ -52,7 +55,7 @@ const VideoPlayer = () => {
       const loadedModel = await tmPose.load(modelURL, metadataURL);
       setModel(loadedModel);
     };
-
+    getCameras();
     loadModel();
   }, []);
 
@@ -76,37 +79,45 @@ const VideoPlayer = () => {
 
   const getPredictionAccuracy = async () => {
     try {
-      const videoElement = videoRef.current;
-      if(!videoElement) return;
-      const canvas = document.createElement('canvas');
-      const ctx = canvas.getContext('2d');
-      canvas.width = videoElement.videoWidth;
-      canvas.height = videoElement.videoHeight;
-      ctx.drawImage(videoElement, 0, 0, canvas.width, canvas.height);
-      
-      // 특성 벡터 추출
-      const features = await model.estimatePose(canvas);
-      const { pose, posenetOutput } = features;
-      
-      // 모델에 전달하여 예측 실행
+      let canvas;
+      if (cameraName != 'VIDEO') {
+        const videoElement = myVideoRef.current; // Use the live video feed
+        if (!videoElement) return;
+        canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = videoElement.videoWidth;
+        canvas.height = videoElement.videoHeight;
+        ctx.drawImage(videoElement, 0, 0, canvas.width, canvas.height);
+      } else {
+        const videoElement = videoRef.current;
+        if (!videoElement) return;
+        canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = videoElement.videoWidth;
+        canvas.height = videoElement.videoHeight;
+        ctx.drawImage(videoElement, 0, 0, canvas.width, canvas.height);
+      }
+      // Estimate pose on the canvas
+      const { pose, posenetOutput } = await model.estimatePose(canvas);
+      // Predict based on the pose estimation
       const prediction = await model.predict(posenetOutput);
-
+  
       let accuracy = prediction[1].probability.toFixed(2);
-      if(!pause && accuracy > 0.8 && stand==0){
+      if (!pause && accuracy > 0.8 && stand == 0) {
         check++;
-        if(check >= 1){
-          setCount(count=>count+1);
-          setStand(stand=>stand+1);
+        if (check >= 1) {
+          setCount(count => count + 1);
+          setStand(stand => stand + 1);
           check = 0;
         }
-      }else if(stand!=0 && accuracy < 0.3){
+      } else if (stand != 0 && accuracy < 0.3) {
         setStand(0);
       }
-      
     } catch (error) {
       console.error('Error getting prediction accuracy:', error);
     }
   };
+  
 
   useInterval(() => {
     getPredictionAccuracy();
@@ -135,30 +146,100 @@ const VideoPlayer = () => {
     }
   }, [videoRef]);
 
-  return (
-    <div class="video-container">
-      <div class="upload-container" ref={dropRef} style={{ width: '100%', height: '600px', border: '2px dashed #ccc', textAlign: 'center', paddingTop: '30px' }} onDrop={handleDrop} onDragOver={handleDragOver}>
-        {videoSrc ? (
-          <video ref={videoRef} controls style={{ width: '100%', height: '100%' }}>
-            <source src={videoSrc} type="video/mp4" />
-            비디오 태그를 지원하지 않는 브라우저입니다.
-          </video>
-        ) : (
-          <>
-          <p>비디오 파일을 여기로 드래그 앤 드롭하세요.</p>
-          <Logo />
-          </>
-          
-        )}
-      </div>
-      
-      <div class="counter-container">
-        <h4 class="title-counter" id='pose-counts'>Counts</h4>
-        <span class="number-counter">{count}</span>
-      </div>
+  const handleInputChange = (e) => {
+		const { name, value } = e.target;
+    console.log(name,':',value);
+    setCameraName(item=> item = value);
+    setCount(0);
+    handleCameraChange(e);
+		// console.log(formData);
+	};
 
-    </div>
-  );
+  const [cameras, setCameras] = useState([]);
+  const [selectedCamera, setSelectedCamera] = useState('');
+  const [localStream, setLocalStream] = useState(null);
+  const myVideoRef = useRef();
+  const [muted, setMuted] = useState(false);
+  //카메라 종류 체크
+  const getCameras = async () => {
+    try {
+        const devices = await navigator.mediaDevices.enumerateDevices();
+        const videoDevices = devices.filter(device => device.kind === 'videoinput');
+        setCameras(videoDevices);
+        if(videoDevices.length > 0 && !selectedCamera) {
+            setSelectedCamera(videoDevices[0].deviceId);
+        }
+    } catch (e) {
+        console.error(e);
+    }
 };
+
+  const handleCameraChange = async (event) => {
+    setSelectedCamera(event.target.value);
+    await getMedia(event.target.value);
+  };
+
+  const getMedia = async (deviceId) => {
+    const constraints = {
+        audio: true,
+        video: deviceId ? { deviceId: { exact: deviceId } } : true,
+    };
+    try {
+        const stream = await navigator.mediaDevices.getUserMedia(constraints);
+        if(myVideoRef.current) {
+            myVideoRef.current.srcObject = stream;
+        }
+        setLocalStream(stream);
+    } catch (e) {
+        console.error(e);
+    }
+  };
+
+  return (
+    <>
+      <div>
+        <select className="CATEGORY" onChange={handleInputChange}>
+          <option value='VIDEO'>VIDEO</option>
+          {cameras.map((camera) => (
+            <option key={camera.deviceId} value={camera.deviceId}>
+              {camera.label || `카메라 ${camera.deviceId}`}
+            </option>
+          ))}
+        </select>
+        </div>
+
+      <div className="video-counter-container">
+        <div className="video-container" ref={dropRef} style={{ width: '100%',height: '445px', textAlign: 'center',border: '1px dashed #ccc' }} onDrop={handleDrop} onDragOver={handleDragOver}>
+          {cameraName === 'VIDEO' ?
+            <>
+              {videoSrc ? (
+                <video ref={videoRef} controls style={{ width: '100%', height: '100%'}}>
+                  <source src={videoSrc} type="video/mp4" />
+                  비디오 태그를 지원하지 않는 브라우저입니다.
+                </video>
+              ) : (
+                  <>
+                    <p>비디오 파일을 여기로 드래그 앤 드롭하세요.</p>
+                    <Logo />
+                  </>
+                )}
+            </>
+            :
+            <>
+              <div >
+                <video style={{ width: '100%', height: '50%', textAlign: 'center' }} ref={myVideoRef} autoPlay playsInline muted={muted} />
+              </div>
+            </>
+          }
+        </div>
+
+        <div className="counter-container">
+          <h4 className="title-counter" id='pose-counts'>카운트</h4>
+          <span className="number-counter">{count}</span>
+        </div>
+
+      </div>
+      </>
+    )};
 
 export default VideoPlayer;

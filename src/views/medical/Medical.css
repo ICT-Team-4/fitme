@@ -147,10 +147,11 @@
 }
 
 .mm-survey-question p {
-	font-size: 22px;
+    font-size: 22px;
     font-weight: 400;
     margin-bottom: 20px;
     line-height: 40px;
+    text-align: center;
 }
 
 .mm-survery-content label p {
@@ -320,18 +321,19 @@ input[type="radio"]:checked + label span {
 	width: 100%;
 	height: 480px;
 	margin-bottom: 20px;
-	font-size: 40px;
+	font-size: 50px;
 	line-height: 70px;
-	display: flex;
-	justify-content: center;
-	align-items: center;
 	display: none;
 }
 
 .mm-survey-result-item{
-	width: 80%;
+	position: absolute;
+    left:0; right:0;
+    margin:auto;
+    top:170px;
+    width: 80%;
+    text-align: center;
 }
-
 
 
 
@@ -492,4 +494,10 @@ input[type="radio"]:checked + label span {
 
 .survey-button-disabled{
 	display: none;
+}
+
+
+.result-percent-style{
+	color:orange;
+	text-shadow: 2px 2px 5px black;
 }

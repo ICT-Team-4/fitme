@@ -68,7 +68,7 @@ function Header() {
                                     </li>
 
                                     <li>
-                                        <Link to="/game">Game</Link>
+                                        <Link to="/game">Training</Link>
                                     </li>
 
                                     <li><Link to="/diet">Management</Link>

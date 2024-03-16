@@ -7,7 +7,8 @@ import './Medical.css';
 import $ from 'jquery';
 import axios from 'axios';
 
-import img_medical from '../../../src/assets/images/breadcumb/medical.jpg'
+import img_medical from '../../assets/images/breadcumb/medical.jpg'
+
 
 function Medical() {
 
@@ -265,7 +266,10 @@ function Medical() {
 	{/*판단 결과 값 fetch로 받을 부분*/}
 	const submitData = async (e) => {
 		e.preventDefault();		
-		$(".book_loader").fadeIn(3000);
+		$('.mm-finish-btn').on('click', function() {
+			$('.mm-survey-bottom').slideUp();
+			$('.mm-survey-results').slideDown();
+		});
 
 			const transformedInputs = {
 				sex: gender === 'M' ? 0 : 1,
@@ -300,6 +304,9 @@ function Medical() {
 			});
 	
 			try {
+				$('.mm-survey-result-container').css("display","none");
+				$('.survey-button-disabled').css("display","none");
+				$(".book_loader").fadeIn();
 				console.log('고혈압 데이터 전송');
 				const response1 = await axios.get(
 				`http://localhost:5000/hypertension?sex=${transformedInputs.sex}&age=${age}&fbs=${transformedInputs.fbs}&trestbps=${bloodPressure}` +
@@ -307,42 +314,21 @@ function Medical() {
 				);
 			   // 예측 결과 저장
 			   setPrediction(response1.data.hypertension_proba);
+			
+			   console.log('당뇨병 데이터 전송');
+			   const response2 = await axios.get(`http://localhost:5000/diabetes?age=${age}&pregnancies=${pregnancies}&glucose=${glucose}`
+			   + `&bloodPressure=${bloodPressure}&skinThickness=${skinThickness}&insulin=${insulin}&diabetesPedigreeFunction=${diabetesPedigreeFunction}&height=${height}&weight=${weight}`);
+			   setPredictionDiabe(response2.data.prediction); // API 응답에서 예측 결과 저장
+
+
+			   $(".book_loader").fadeOut();
+			   $('.survey-button-disabled').css("display","block");
+			   $('.mm-survey-result-container').css("display","block");
 			} catch (error) {
 				console.error("Error fetching prediction data:", error);
-			}
-	
-			
-			try {
-				console.log('당뇨병 데이터 전송');
-				const response2 = await axios.get(`http://localhost:5000/diabetes?age=${age}&pregnancies=${pregnancies}&glucose=${glucose}`
-				+ `&bloodPressure=${bloodPressure}&skinThickness=${skinThickness}&insulin=${insulin}&diabetesPedigreeFunction=${diabetesPedigreeFunction}&height=${height}&weight=${weight}`);
-				setPredictionDiabe(response2.data.prediction); // API 응답에서 예측 결과 저장
-			}
-			catch (error) {
-				console.error("당뇨병 예측 요청 중 오류 발생:", error);
 				setPredictionDiabe(null); // 에러 발생 시 예측 결과 초기화
 			}
-			
-		
-	  
-		
-		
-		
-		//axios로 값을 가져옴 (useState로)
 
-
-
-		{/* Fetch 다한 다음에 결과값 나옴 */}
-		console.log("출력");
-		$('.mm-finish-btn').on('click', function() {
-			$('.mm-survey-bottom').slideUp();
-			$('.mm-survey-results').slideDown();
-		});
-
-		{/* fetch로 가져오면 로딩바 없애기*/}
-		$(".book_loader").css("display","none");
-		$('.survey-button-disabled').css("display","block");
-		$('.mm-survey-result-container').css("display","block");
 	}
 
 
@@ -369,7 +355,7 @@ function Medical() {
 		{/*헤더 메인 메뉴*/}
 		<Header/>
 		{/* 제목 배경화면 */}
-		<Breadcumb title="Medical" content="" img_title={img_medical} />
+		<Breadcumb title="Medical" content="social"  img_title={img_medical}/>
 
 		<div className="container">
 			{/* 전체 값을 보내는 방식 form post 또는 get으로*/}
@@ -424,11 +410,11 @@ function Medical() {
 
 								<div className='mm-survey-result-container'>
 									{viewDiabetes &&(<div className='mm-survey-result-item'>
-										당신의 당뇨병 질환의 예측 확률은 {predictionDiabe}% 입니다.
+										당신의 당뇨병 질환의 예측 확률<br/><span className='result-percent-style'>{predictionDiabe}%</span> 입니다.
 									</div>)}
 
 									{viewHighBloodPressure &&(<div className='mm-survey-result-item'>
-										당신의 고혈압 질환의 예측 확률은 {prediction}% 입니다.
+										당신의 고혈압 질환의 예측 확률<br/><span className='result-percent-style'>{prediction}%</span> 입니다.
 									</div>)}
 								</div>
 
