@@ -66,6 +66,7 @@ function App() {
     <div className="App">
         <BrowserRouter>
           <Routes>
+          {/* 동훈 테스트 */}
             {/*관리자 페이지*/}
             <Route path={'/admin'} element={<Dashboard/>}/>
             <Route path={'/admin/userlist'} element={<UserList/>}/>
